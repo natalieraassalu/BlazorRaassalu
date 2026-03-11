@@ -1,0 +1,17 @@
+﻿<Project Sdk="MSTest.Sdk/4.0.1">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>disable</Nullable>
+	  <AssemblyName>Abc.Tests.Data</AssemblyName>
+	  <RootNamespace>Abc.Tests.Data</RootNamespace>
+    <UseVSTest>true</UseVSTest>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Code\Data\Data.csproj" />
+	</ItemGroup>
+
+</Project>

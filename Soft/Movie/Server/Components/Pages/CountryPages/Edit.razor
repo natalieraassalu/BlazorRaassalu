@@ -1,0 +1,77 @@
+﻿@page "/countries/edit"
+@rendermode InteractiveServer
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@inject ICountriesRepo repo
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit Countries</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Countries</h2>
+<hr />
+@if (country is null)
+{
+    <p><em>Loading...</em></p>
+
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+        <EditForm method="post" Model="country" OnValidSubmit="updateCountry" FormName="edit" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary role="alert"/>
+            <input type="hidden" name="country.Id" value="@country.Id" />
+
+            <MyPropertyEditor TValue="string" Label="Name" Id="name" 
+                              @bind-Value="country.Name" />
+            <MyPropertyEditor TValue="string" Label="Code" Id="code" 
+                              @bind-Value="country.Code" />
+            <MyPropertyEditor TValue="string" Label="Details" Id="details"
+                              @bind-Value="country.Details" />
+            <MyPropertyEditor TValue="string" Label="Iso Code" Id="isoCode"
+                              @bind-Value="country.IsoCode" />
+            <MyPropertyEditor TValue="string" Label="Native Name" Id="nativeName"
+                              @bind-Value="country.NativeName" />
+            <MyPropertyEditor TValue="string" Label="Numeric Code" Id="numericCode"
+                              @bind-Value="country.NumericCode" />
+            <MyPropertyEditor TValue="string" Label="Official Name" Id="officialName"
+                              @bind-Value="country.OfficialName" />
+            <MyPropertyEditor TValue="DateTime" Label="Valid From:" Id="validFrom"
+                              @bind-Value="country.ValidFrom" />
+
+            <MyPropertyEditor TValue="DateTime" Label="Valid To:" Id="validTo"
+                              @bind-Value="country.ValidTo" />
+
+            <button type="submit" class="btn btn-primary">Save</button>
+
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/countries">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+
+    [SupplyParameterFromForm] private Country country { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        country ??= await repo.GetAsync(Id);
+        if (country is null) NavigationManager.NavigateTo("/not-found");
+    }
+
+    private async Task updateCountry()
+    {
+        await repo.UpdateAsync(country);
+        NavigationManager.NavigateTo("/countries");
+    }
+
+}
