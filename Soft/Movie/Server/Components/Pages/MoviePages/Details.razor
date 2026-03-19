@@ -1,8 +1,8 @@
 ﻿@page "/movies/details"
 @rendermode InteractiveServer
-@using Microsoft.EntityFrameworkCore
 @using Abc.Data
-@inject IDbContextFactory<global::movie.Data.AbcSoftMovieContext> DbFactory
+@using Abc.Infra
+@inject IMoviesRepo repo
 @inject NavigationManager NavigationManager
 
 <PageTitle>Details</PageTitle>
@@ -26,19 +26,14 @@
 </div>
 
 @code {
-    private movie? movie;
+    private Movie movie;
 
-    [SupplyParameterFromQuery]
-    private Guid Id { get; set; }
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        movie = await context.Movie.FirstOrDefaultAsync(m => m.Id == Id);
-
-        if (movie is null)
-        {
-            NavigationManager.NavigateTo("/movies");
-        }
+        movie = await repo.GetAsync(Id);
+        if (movie is null) NavigationManager.NavigateTo("/movies");
+        
     }
 }

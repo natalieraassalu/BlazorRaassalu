@@ -1,8 +1,8 @@
 ﻿@page "/movies/create"
 @rendermode InteractiveServer
-@using Microsoft.EntityFrameworkCore
 @using Abc.Data
-@inject IDbContextFactory<Abc.Soft.Movie.Data.AbcSoftMovieContext> DbFactory
+@using Abc.Infra
+@inject IMoviesRepo repo
 @inject NavigationManager NavigationManager
 
 <PageTitle>Create</PageTitle>
@@ -13,21 +13,19 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <EditForm method="post" Model="Movie" OnValidSubmit="AddMovie" FormName="create" Enhance>
+        <EditForm method="post" Model="movie" OnValidSubmit="AddMovie" FormName="create" Enhance>
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
 
             <MyPropertyEditor TValue="string" Label="Title" Id="title" 
-                        @bind-Value="Movie.Name" />
+                        @bind-Value="movie.Name" />
 
             <MyPropertyEditor TValue ="DateTime" Label="Release Date" Id="releasedate" 
-                        @bind-Value="Movie.ValidFrom" />
+                        @bind-Value="movie.ValidFrom" />
 
             <MyPropertyEditor TValue ="string" Label="Genre" Id="genre" 
-                        @bind-Value="Movie.Genre" />
+                        @bind-Value="movie.Genre" />
 
-            <MyPropertyEditor TValue ="decimal" Label="Price" Id="price" 
-                        @bind-Value="Movie.Price" />
 
 
             <button type="submit" class="btn btn-primary">Create</button>
@@ -40,17 +38,12 @@
 </div>
 
 @code {
-    [SupplyParameterFromForm]
-    private Movie Movie { get; set; } = default!;
+    [SupplyParameterFromForm] private Movie movie { get; set; } = default!;
+    protected override void OnInitialized() => movie ??= new();
 
-    protected override void OnInitialized() => Movie ??= new();
-
-    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddMovie()
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Movie.Add(Movie);
-        await context.SaveChangesAsync();
+        await repo.CreateAsync(movie);
         NavigationManager.NavigateTo("/movies");
     }
 }

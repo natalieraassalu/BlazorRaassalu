@@ -1,8 +1,8 @@
 ﻿@page "/movies/delete"
 @rendermode InteractiveServer
-@using Microsoft.EntityFrameworkCore
 @using Abc.Data
-@inject IDbContextFactory<Abc.Soft.Movie.Data.AbcSoftMovieContext> DbFactory
+@using Abc.Infra
+@inject IMoviesRepo repo
 @inject NavigationManager NavigationManager
 
 <PageTitle>Delete</PageTitle>
@@ -33,20 +33,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        movie = await context.Movie.FirstOrDefaultAsync(m => m.Id == Id);
-
-        if (movie is null)
-        {
-            NavigationManager.NavigateTo("/movies");
-        }
+        movie = await repo.GetAsync(Id);
+        if (movie is null) NavigationManager.NavigateTo("/movies");
     }
 
     private async Task DeleteMovie()
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Movie.Remove(movie!);
-        await context.SaveChangesAsync();
+        await repo.DeleteAsync(movie.Id);
         NavigationManager.NavigateTo("/movies");
     }
 }

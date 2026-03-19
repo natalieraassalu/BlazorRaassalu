@@ -20,7 +20,6 @@
         <PropertyColumn Property="movie => movie.Name"/>
         <PropertyColumn Property="movie => movie.ValidFrom" />
         <PropertyColumn Property="movie => movie.Genre"/>
-        <PropertyColumn Property="movie => movie.Price"/>
 
         <TemplateColumn Context="movie">
             <a href="@($"movies/edit?id={movie.Id}")">Edit</a> |

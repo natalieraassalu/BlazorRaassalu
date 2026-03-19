@@ -15,9 +15,9 @@
 </head>
 
 <body>
-    <Router AppAssembly="typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(movie.Client._Imports).Assembly }">
+    <Router AppAssembly="typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(Abc.Soft.Movie.Client._Imports).Assembly }">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(movie.Client.Layout.MainLayout)">
+            <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Abc.Soft.Movie.Client.Layout.MainLayout)">
                 <NotAuthorized>
                     @if (context.User.Identity?.IsAuthenticated != true)
                     {
@@ -33,7 +33,7 @@
         </Found>
         <NotFound>
             <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="typeof(movie.Client.Layout.MainLayout)">
+            <LayoutView Layout="typeof(Abc.Soft.Movie.Client.Layout.MainLayout)">
                 <p role="alert">Sorry, there's nothing at this address.</p>
             </LayoutView>
         </NotFound>

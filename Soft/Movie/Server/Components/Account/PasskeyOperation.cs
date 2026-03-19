@@ -1,4 +1,4 @@
-namespace movie.Components.Account
+namespace Abc.Soft.Movie.Components.Account
 {
     public enum PasskeyOperation
     {

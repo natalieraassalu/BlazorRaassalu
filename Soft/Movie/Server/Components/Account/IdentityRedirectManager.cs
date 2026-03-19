@@ -2,7 +2,7 @@ using Abc.Infra;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 
-namespace movie.Components.Account
+namespace Abc.Soft.Movie.Components.Account
 {
     internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {

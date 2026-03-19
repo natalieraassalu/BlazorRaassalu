@@ -50,6 +50,5 @@ where TEntity : BaseEntity
         return e;
     }
 
-
 }
 

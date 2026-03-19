@@ -1,6 +1,6 @@
 using Abc.Infra;
-using movie.Components.Account.Pages;
-using movie.Components.Account.Pages.Manage;
+using Abc.Soft.Movie.Components.Account.Pages;
+using Abc.Soft.Movie.Components.Account.Pages.Manage;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;

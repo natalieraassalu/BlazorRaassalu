@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Abc.Data;
+using Abc.Soft.Movie.Data;
 
-namespace movie.Data
+namespace Abc.Soft.Movie.Data
 {
     public class SeedData
     {
@@ -23,40 +24,35 @@ namespace movie.Data
             }
 
             context.Movie.AddRange(
-                new Abc.Data.movie
+                new Abc.Data.Movie
                 {
                     Name = "Mad Max",
                     ValidFrom = new DateTime(1979, 4, 12),
                     Genre = "Sci-fi (Cyberpunk)",
-                    Price = 2.51M
                 },
-                new Abc.Data.movie
+                new Abc.Data.Movie
                 {
                     Name = "The Road Warrior",
                     ValidFrom = new DateTime(1981, 12, 24),
                     Genre = "Sci-fi (Cyberpunk)",
-                    Price = 2.78M
                 },
-                new Abc.Data.movie
+                new Abc.Data.Movie
                 {
                     Name = "Mad Max: Beyond Thunderdome",
                     ValidFrom = new DateTime(1985, 7, 10),
                     Genre = "Sci-fi (Cyberpunk)",
-                    Price = 3.55M
                 },
-                new Abc.Data.movie
+                new Abc.Data.Movie
                 {
                     Name = "Mad Max: Fury Road",
                     ValidFrom = new DateTime(2015, 5, 15),
                     Genre = "Sci-fi (Cyberpunk)",
-                    Price = 8.43M
                 },
-                new Abc.Data.movie
+                new Abc.Data.Movie
                 {
                     Name = "Furiosa: A Mad Max Saga",
                     ValidFrom = new DateTime(2024, 5, 24),
                     Genre = "Sci-fi (Cyberpunk)",
-                    Price = 13.49M
                 });
 
             context.SaveChanges();

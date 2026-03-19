@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Abc.Data;
 
-namespace movie.Data
+namespace Abc.Soft.Movie.Data
 {
     public class AbcSoftMovieContext : DbContext
     {
@@ -14,7 +14,7 @@ namespace movie.Data
         {
         }
 
-        public DbSet<Abc.Data.movie> Movie { get; set; } = default!;
+        public DbSet<Abc.Data.Movie> Movie { get; set; } = default!;
         public DbSet<Abc.Data.Currency> Currency { get; set; } = default!;
         public DbSet<Abc.Data.Country> Country { get; set; } = default!;
     }

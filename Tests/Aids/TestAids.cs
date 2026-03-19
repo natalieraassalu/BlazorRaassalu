@@ -1,19 +1,21 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
+using System.Formats.Asn1;
 using System.Reflection;
-using System.Security.Cryptography;
-
 namespace Abc.Tests.Aids;
 
-public abstract class TestAids<TClass> where TClass : class, new()
+public abstract class TestAids<TClass>:TestAids where TClass : class, new()
 {
     protected TClass obj;
+
+    [TestInitialize] public virtual void Initialize() => type = typeof(TClass);
 
     protected const BindingFlags publicDeclared = BindingFlags.Public
                                                   | BindingFlags.Instance
                                                   | BindingFlags.DeclaredOnly
                                                   | BindingFlags.Static;
 
-    protected static IEnumerable<string> GetPropertyNames() =>
+    protected static IEnumerable<string> getProperties() =>
         Abc.Aids.GetType.PropertyNames<TClass>(publicDeclared);
 
     protected static IEnumerable<string> getMethods()
@@ -32,4 +34,18 @@ public abstract class TestAids<TClass> where TClass : class, new()
 
     private static string noProperty(string name)
         => $"Property {name} not found in class {typeof(TClass).Name})";
+}
+
+public abstract class TestAids
+{
+    protected Type type { get; set; }
+    [TestMethod] public void IsCorrectClassTest()
+    {
+        var className = type?.Name;
+        var testClassName = GetType().Name;
+        Assert.AreEqual(testClassName.Replace("Tests", ""), className);
+    }
+
+    public void areEqual<T>(T expected,T actual) => Assert.AreEqual(expected, actual);
+    public void areSame(object expected, object actual) => Assert.AreSame(expected, actual);
 }

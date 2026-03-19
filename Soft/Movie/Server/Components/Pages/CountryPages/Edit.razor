@@ -25,6 +25,7 @@ else
             <DataAnnotationsValidator />
             <ValidationSummary role="alert"/>
             <input type="hidden" name="country.Id" value="@country.Id" />
+            <MyEntityEditor Entity="country"/>
 
             <MyPropertyEditor TValue="string" Label="Name" Id="name" 
                               @bind-Value="country.Name" />
