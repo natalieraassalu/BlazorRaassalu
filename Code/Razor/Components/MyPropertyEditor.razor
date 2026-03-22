@@ -1,4 +1,4 @@
-﻿@* @using Microsoft.AspNetCore.Components
+﻿@using Microsoft.AspNetCore.Components
 @using System.Reflection
 
 <div class="mb-3">
@@ -16,14 +16,14 @@
 @code {
     [Parameter] public object Item { get; set; }
     [Parameter] public string PropertyName { get; set; } = string.Empty;
-    // protected override void OnParametersSet() => ad = crAdapter();
-    // private IEditorAdapter crAdapter() => new EditorAdapter(this, Item, PropertyName);
-    // private IEditorAdapter ad;
-    // private bool hasEditor => editorType is not null;
-    // private bool hasProperty => ad?.PropInfo is not null;
-    // private string inputLabel => ad?.DisplayName ?? string.Empty;
-    // private Type editorType => ad?.Editor;
-    // private Type validationType => ad?.Validator;
-    // private IDictionary<string, object> editorParams => ad?.EditorParams;
-    // private IDictionary<string, object> validationParams => ad?.ValidationParams;
-} *@
+    protected override void OnParametersSet() => ad = crAdapter();
+    private IEditorAdapter crAdapter() => new EditorAdapter(this, Item, PropertyName);
+    private IEditorAdapter ad;
+    private bool hasEditor => editorType is not null;
+    private bool hasProperty => ad?.PropInfo is not null;
+    private string inputLabel => ad?.DisplayName ?? string.Empty;
+    private Type editorType => ad?.Editor;
+    private Type validationType => ad?.Validator;
+    private IDictionary<string, object> editorParams => ad?.EditorParams;
+    private IDictionary<string, object> validationParams => ad?.ValidationParams;
+}

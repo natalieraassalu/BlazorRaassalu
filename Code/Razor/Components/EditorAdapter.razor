@@ -1,4 +1,4 @@
-﻿@* using Abc.Aids;
+﻿using Abc.Aids;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
@@ -64,5 +64,4 @@ public sealed partial class EditorAdapter(ComponentBase c, object item, string p
     internal object valExpression() => makeGeneric(method(nameof(expression)));
     internal static Type generic(Type editor, Type t) => editor.MakeGenericType(t);
 
-    } *@
-    
+}
