@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Abc.Data.Common
-{
+namespace Abc.Data.Common;
+
     public class BaseEntity
     {
         public virtual Guid Id { get; set; } = Guid.NewGuid();
@@ -9,4 +9,4 @@ namespace Abc.Data.Common
         public virtual DateTime ValidTo { get; set; }
         [Timestamp] public virtual byte[] Timestamp { get; set; } = [];
     }
-}
+
