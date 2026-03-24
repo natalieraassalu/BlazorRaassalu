@@ -17,7 +17,6 @@ namespace Abc.Tests.Aids;
         => Assert.AreNotEqual(GetRandom.Int32(min,max),GetRandom.Int32(min,max));
     [TestMethod] public void Int64Test()
         => Assert.AreNotEqual(GetRandom.Int64(min,max),GetRandom.Int64(min,max));
-
     [TestMethod] public void UInt8Test()
         => Assert.AreNotEqual(GetRandom.UInt8(0,(byte) max), GetRandom.UInt8(0, (byte)max));
     [TestMethod] public void UInt16Test()

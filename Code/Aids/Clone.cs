@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
+﻿
 using System.Reflection;
-using System.Text;
 
-namespace Abc.Aids
-{
+namespace Abc.Aids;
     public static class Clone
     {
         public static TClass Object<TClass>(TClass obj)
@@ -22,7 +18,6 @@ namespace Abc.Aids
             copy(obj, o, props);
             return o;
         }
-
         private static void copy(object from, object to, PropertyInfo[] props)
         {
             foreach (var p in props)
@@ -37,5 +32,3 @@ namespace Abc.Aids
         private static bool isClass(PropertyInfo p)
         => p.PropertyType.IsClass && p.PropertyType != typeof(string);
     }
-
-}

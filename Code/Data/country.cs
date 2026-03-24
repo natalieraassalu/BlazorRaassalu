@@ -1,4 +1,5 @@
 ﻿using Abc.Data.Common;
+
 namespace Abc.Data;
 
 public sealed class Country : NamedEntity
