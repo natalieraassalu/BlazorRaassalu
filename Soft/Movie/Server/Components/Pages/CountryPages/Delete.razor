@@ -1,14 +1,17 @@
 ﻿@page "/countries/delete"
-@rendermode InteractiveServer
 @using Abc.Data
 @using Abc.Infra
+@attribute [ExcludeFromInteractiveRouting]
 @inject ICountriesRepo repo
 @inject NavigationManager NavigationManager
 
-<MyDeletePage PageTitleText="Delete Movie" EntityTitle="Movie" Entity="country" BasePath="/movies" OnValidSubmit="deleteCountry" />
-<MyPropertyViewer Label="Id" Value="@country.Id.ToString()" />
-<MyPropertyViewer Label="Name" Value="@country.Name" />
-<MyPropertyViewer Label="Code" Value="@country.Code" />
+<MyDeletePage PageTitleText="Delete Country" EntityTitle="Country" Entity="country" BasePath="/countries" OnValidSubmit="deleteCountry">
+    <MyPropertyViewer Label="Id" Value="@country.Id.ToString()" />
+    <MyPropertyViewer Label="Name" Value="@country.Name" />
+    <MyPropertyViewer Label="Code" Value="@country.Code" />
+    @*     <MyEntityViewer Entity="country" />
+ *@
+</MyDeletePage> 
 
 @code {
     private Country country;

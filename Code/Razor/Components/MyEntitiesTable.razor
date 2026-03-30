@@ -1,5 +1,38 @@
-﻿<h3>MyEntitiesTable</h3>
+﻿@using Abc.Data.Common
+@using Microsoft.AspNetCore.Components.Web.QuickGrid
+@using System.Reflection
+@using System.Collections
+
+@typeparam TEntity where TEntity : BaseEntity
+
+<QuickGrid Class="table" Items="Entities">
+    @foreach (var p in typeof(TEntity).GetProperties()) {
+        @if (!show(p)) continue;
+        <TemplateColumn Title="@p.Name" Context="y">
+            @(value(p, y))
+        </TemplateColumn>
+    }
+    <TemplateColumn Context="y">
+        <a href="@($"{BasePath}/edit?id={y.Id}")">Edit</a> |
+        <a href="@($"{BasePath}/details?id={y.Id}")">Details</a> |
+        <a href="@($"{BasePath}/delete?id={y.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
 
 @code {
-
+    [Parameter] public IQueryable<TEntity> Entities { get; set; }
+    [Parameter] public string BasePath { get; set; }
+    private string value(PropertyInfo p, TEntity e) {
+        var v = p?.GetValue(e);
+        return v?.ToString() ?? string.Empty;
+    }
+    private bool show(PropertyInfo p) {
+        if (p is null) return false;
+        if (p.Name == nameof(NamedEntity.Id)) return false;
+        var t = p.PropertyType;
+        if (t == typeof(string)) return true;
+        if (typeof(IEnumerable).IsAssignableFrom(t)) return false;
+        if (t.IsClass) return false;
+        return true;
+    }
 }

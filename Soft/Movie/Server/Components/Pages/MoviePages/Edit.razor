@@ -1,58 +1,27 @@
 ﻿@page "/movies/edit"
-@rendermode InteractiveServer
 @using Abc.Data
 @using Abc.Infra
+@attribute [ExcludeFromInteractiveRouting]
 @inject IMoviesRepo repo
 @inject NavigationManager NavigationManager
 
-<PageTitle>Edit</PageTitle>
-
-<h1>Edit</h1>
-
-<h2>Movie</h2>
-<hr />
-@if (movie is not null)
-{
-    <div class="row">
-        <div class="col-md-4">
-        <EditForm method="post" Model="movie" OnValidSubmit="UpdateMovie" FormName="edit" Enhance>
-            <DataAnnotationsValidator />
-            <ValidationSummary role="alert"/>
-            <input type="hidden" name="Movie.Id" value="@movie.Id" />
-
-            <MyEntityEditor Entity="Movie" />
-
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Name)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.ValidFrom)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Genre)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Price)" />
-            <button type="submit" class="btn btn-primary">Save</button>
-
-            </EditForm>
-        </div>
-    </div>
-}
-
-<div>
-    <a href="/movies">Back to List</a>
-</div>
+<MyEditPage 
+    PageTitleText="Edit Movie" 
+    EntityTitle="@movie?.Name" 
+    Entity="movie" 
+    BasePath="/movies"
+    EntityId="@Id"
+    OnValidSubmit="updateMovie" />
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-
     [SupplyParameterFromForm] private Movie movie { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync() {
         movie ??= await repo.GetAsync(Id);
         if (movie is null) NavigationManager.NotFound();
-        
     }
-
-    private async Task UpdateMovie()
-    {
+    private async Task updateMovie() {
         await repo.UpdateAsync(movie!);
         NavigationManager.NavigateTo("/movies");
     }
-
-}        
+}

@@ -1,36 +1,11 @@
 ﻿@page "/movies/create"
-@rendermode InteractiveServer
 @using Abc.Data
 @using Abc.Infra
+@attribute [ExcludeFromInteractiveRouting]
 @inject IMoviesRepo repo
 @inject NavigationManager NavigationManager
 
-<PageTitle>Create</PageTitle>
-
-<h1>Create</h1>
-
-<h2>Movie</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <EditForm method="post" Model="movie" OnValidSubmit="AddMovie" FormName="create" Enhance>
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert"/>
-            <MyEntityEditor Entity ="movie" />
-            
-          @*   <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Name)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.ValidFrom)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Genre)" />
-            <MyPropertyEditor Item="Movie" PropertyName="@nameof(Movie.Price)" />
- *@
-            <button type="submit" class="btn btn-primary">Create</button>
-        </EditForm>
-    </div>
-</div>
-
-<div>
-    <a href="/movies">Back to List</a>
-</div>
+<MyCreatePage Entity="movie" EntityTitle="Movie" BasePath="/movies" OnValidSubmit="addMovie" />
 
 @code {
     [SupplyParameterFromForm] private Movie movie { get; set; } = default!;
