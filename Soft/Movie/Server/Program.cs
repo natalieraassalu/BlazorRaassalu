@@ -1,18 +1,11 @@
 using Abc.Infra;
-using Abc.Soft.Movie.Client.Pages;
 using Abc.Soft.Movie.Components;
 using Abc.Soft.Movie.Components.Account;
-using Abc.Soft.Movie.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContextFactory<AbcSoftMovieContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AbcSoftMovieContext") ?? throw new InvalidOperationException("Connection string 'AbcSoftMovieContext' not found.")));
-
-builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -48,14 +41,9 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.Services.AddScoped<IMoviesRepo, MoviesRepo>();
 builder.Services.AddScoped<ICountriesRepo, CountriesRepo>();
 builder.Services.AddScoped<ICurrenciesRepo, CurrenciesRepo>();
+builder.Services.AddScoped<IMoniesRepo, MoniesRepo>();
+builder.Services.AddScoped<ICountryCurrenciesRepo, CountryCurrenciesRepo>();
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    SeedData.Initialize(services);
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

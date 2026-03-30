@@ -10,4 +10,5 @@ public sealed class Country : NamedEntity
     public bool IsIsoCountry { get; set; }
     private bool IsLoyaltyProgram { get; set; }
     public string IsoCode { get; set; } = "";
+    public IEnumerable<CountryCurrency> Currencies { get; set; } = [];
 }
