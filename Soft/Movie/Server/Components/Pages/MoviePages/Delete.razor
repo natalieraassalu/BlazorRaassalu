@@ -15,7 +15,7 @@
     protected override async Task OnInitializedAsync()
     {
         movie = await repo.GetAsync(Id);
-        if (movie is null) NavigationManager.NavigateTo("/movies");
+        if (movie is null) NavigationManager.NotFound();
     }
 
     private async Task deleteMovie()

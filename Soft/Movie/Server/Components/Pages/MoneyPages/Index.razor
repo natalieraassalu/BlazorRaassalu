@@ -1,0 +1,24 @@
+﻿@page "/monies"
+@using Abc.Data
+@using Abc.Infra
+@attribute [ExcludeFromInteractiveRouting]
+@inject IMoniesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyIndexPage 
+    TItem="Money" 
+    PageTitleText="Monies Page" 
+    EntityTitle="Money" 
+    Items="monies" 
+    BasePath="monies">
+</MyIndexPage>
+
+@code {
+    private IQueryable<Money> monies = Enumerable.Empty<Money>().AsQueryable();
+
+    protected override async Task OnInitializedAsync() {
+        if (repo is null) return;
+        monies = (await repo.GetAsync()).AsQueryable();
+    }
+
+}
