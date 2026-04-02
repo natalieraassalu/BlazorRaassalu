@@ -9,7 +9,7 @@
               EntityTitle="Currency" 
               Entity="item" 
               BasePath="/currencies" 
-              OnValidSubmit="deleteCurrency" />
+              OnValidSubmit="delete" />
 
 @code {
     private Currency item;
@@ -22,7 +22,7 @@
         if (item is null) NavigationManager.NotFound();
     }
 
-    private async Task deleteMovie()
+    private async Task delete()
     {
         await repo.DeleteAsync(item.Id);
         NavigationManager.NavigateTo("/currencies");

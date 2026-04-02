@@ -5,10 +5,10 @@
 @inject ICountryCurrenciesRepo repo
 @inject NavigationManager NavigationManager
 
-<MyCreatePage Entity="countryCurrency" 
+<MyCreatePage Entity="item" 
               EntityTitle="Country Currencies" 
               BasePath="/countrycurrencies" 
-              OnValidSubmit="addCountryCurrencies" />
+              OnValidSubmit="add" />
 @code {
     [SupplyParameterFromForm] private CountryCurrency item { get; set; } = default!;
     protected override void OnInitialized() => item ??= new();

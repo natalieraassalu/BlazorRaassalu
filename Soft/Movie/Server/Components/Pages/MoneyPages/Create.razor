@@ -5,10 +5,10 @@
 @inject IMoniesRepo repo
 @inject NavigationManager NavigationManager
 
-<MyCreatePage Entity="money" 
+<MyCreatePage Entity="item" 
               EntityTitle="Money" 
               BasePath="/monies" 
-              OnValidSubmit="addMoney" />
+              OnValidSubmit="add" />
 
 @code {
     [SupplyParameterFromForm] private Money item { get; set; } = default!;

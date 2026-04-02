@@ -11,7 +11,7 @@
     Entity="item" 
     BasePath="/monies"
     EntityId="@Id"
-    OnValidSubmit="updateMoney" />
+    OnValidSubmit="update" />
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }

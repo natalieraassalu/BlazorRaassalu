@@ -11,7 +11,7 @@
     Entity="item" 
     BasePath="/countrycurrencies"
     EntityId="@Id"
-    OnValidSubmit="updateCountryCurrency" />
+            OnValidSubmit="update" />
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
