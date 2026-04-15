@@ -1,8 +1,8 @@
-﻿@page "/monies/details"
+﻿@page "/money/details"
 @using Abc.Data
 @using Abc.Infra
 @attribute [ExcludeFromInteractiveRouting]
-@inject IMoniesRepo repo
+@inject IMoneyRepo repo
 @inject NavigationManager NavigationManager
 
 <MyDetailsPage
@@ -10,7 +10,7 @@
     EntityTitle="Money"
     Entity="item"
     EntityId="item?.Id"
-    BasePath="/monies" />
+    BasePath="/money" />
 
 @code {
     private Money item;

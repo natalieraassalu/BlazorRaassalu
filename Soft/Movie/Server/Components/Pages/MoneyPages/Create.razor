@@ -1,13 +1,13 @@
-﻿@page "/monies/create"
+﻿@page "/money/create"
 @using Abc.Data
 @using Abc.Infra
 @attribute [ExcludeFromInteractiveRouting]
-@inject IMoniesRepo repo
+@inject IMoneyRepo repo
 @inject NavigationManager NavigationManager
 
 <MyCreatePage Entity="item" 
               EntityTitle="Money" 
-              BasePath="/monies" 
+              BasePath="/money" 
               OnValidSubmit="add" />
 
 @code {
@@ -17,6 +17,6 @@
     private async Task add()
     {
         await repo.CreateAsync(item);
-        NavigationManager.NavigateTo("/monies");
+        NavigationManager.NavigateTo("/money");
     }
 }

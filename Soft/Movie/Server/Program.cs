@@ -41,9 +41,15 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.Services.AddScoped<IMoviesRepo, MoviesRepo>();
 builder.Services.AddScoped<ICountriesRepo, CountriesRepo>();
 builder.Services.AddScoped<ICurrenciesRepo, CurrenciesRepo>();
-builder.Services.AddScoped<IMoniesRepo, MoniesRepo>();
+builder.Services.AddScoped<IMoneyRepo, MoneyRepo>();
 builder.Services.AddScoped<ICountryCurrenciesRepo, CountryCurrenciesRepo>();
+
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var sp = scope.ServiceProvider;
+var db = sp.GetRequiredService<ApplicationDbContext>();
+await new SeedDb(db, 10000).Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -71,12 +77,5 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
-// Ensure database is migrated to latest version on startup. Useful in development; remove or control in production.
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
-}
 
 app.Run();
