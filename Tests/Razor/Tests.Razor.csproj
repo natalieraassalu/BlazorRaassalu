@@ -10,4 +10,9 @@
     <UseVSTest>true</UseVSTest>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NuGet.Packaging" Version="6.12.2" />
+    <PackageReference Include="NuGet.Protocol" Version="6.12.1" />
+  </ItemGroup>
+
 </Project>

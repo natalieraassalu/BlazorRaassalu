@@ -5,20 +5,12 @@
 @inject ICurrenciesRepo repo
 @inject NavigationManager NavigationManager
 
-<MyIndexPage 
-    TItem="Currency" 
-    PageTitleText="Currencies Page" 
-    EntityTitle="Currencies" 
-    Items="currencies" 
-    BasePath="currencies">
+<MyIndexPage TItem="Currency"
+             PageTitleText="Currencies Page"
+             EntityTitle="Currencies"
+             Repo="repo"
+             BasePath="/currencies">
 </MyIndexPage>
 
 @code {
-    private IQueryable<Currency> currencies = Enumerable.Empty<Currency>().AsQueryable();
-
-    protected override async Task OnInitializedAsync() {
-        if (repo is null) return;
-        currencies = (await repo.GetAsync()).AsQueryable();
-    }
-
 }
