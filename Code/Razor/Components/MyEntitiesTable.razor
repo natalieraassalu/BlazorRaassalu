@@ -1,4 +1,5 @@
 ﻿@using Abc.Data.Common
+@using Abc.Aids
 @using Abc.Infra
 @using Abc.Shared.Code
 @using Microsoft.AspNetCore.Components.QuickGrid
@@ -46,6 +47,7 @@
     [Parameter] public IRepo<TEntity> Repo { get; set; }
     [Parameter] public string BasePath { get; set; }
     [Inject] private NavigationManager nav { get; set; }
+    [Inject] private ApplicationDbContext db { get; set; }
     private int totalCount;
     private Query query;
     private string icon => query?.SortDir == "asc" ? " ▲" : query?.SortDir == "desc" ? " ▼" : string.Empty;
@@ -60,11 +62,21 @@
         totalCount = await Repo.CountAsync(query);
         Entities = (await Repo.GetAsync(query)).AsQueryable();
     }
-    private string value(PropertyInfo p, TEntity e)
-    {
-        var v = p?.GetValue(e);
+    private string value(PropertyInfo p, TEntity e) {
+        var v = isSelect(p)? getSelectValue(p, e) : p?.GetValue(e);
         return v?.ToString() ?? string.Empty;
     }
+    private bool isSelect(PropertyInfo p) => p?.GetCustomAttribute<SelectAttribute>() != null;
+    private string getSelectValue(PropertyInfo p, TEntity e) {
+        var a = p?.GetCustomAttribute<SelectAttribute>();
+        var id = p?.GetValue(e) as Guid?;
+        if (id is null) return string.Empty;
+        var t = a?.EntityType;
+        var entity = db.Find(t, id);
+        var pi = entity?.GetType().GetProperty(a?.DisplayProperty ?? string.Empty);
+        return pi?.GetValue(entity)?.ToString() ?? string.Empty;
+    }
+
     private bool show(PropertyInfo p)
     {
         if (p is null) return false;
