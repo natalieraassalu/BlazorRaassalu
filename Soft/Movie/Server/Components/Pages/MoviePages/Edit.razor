@@ -16,11 +16,13 @@
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
     [SupplyParameterFromForm] private Movie movie { get; set; }
-    protected override async Task OnInitializedAsync() {
+    protected override async Task OnInitializedAsync()
+    {
         movie ??= await repo.GetAsync(Id);
         if (movie is null) NavigationManager.NotFound();
     }
-    private async Task updateMovie() {
+    private async Task updateMovie()
+    {
         await repo.UpdateAsync(movie!);
         NavigationManager.NavigateTo("/movies");
     }

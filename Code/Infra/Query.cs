@@ -15,22 +15,14 @@ public sealed class Query(Dictionary<string, string> d = null)
     private static int toInt(string s, int def) => int.TryParse(s, out var i) ? i : def;
 
     private string sort => string.IsNullOrEmpty(SortBy)
-        ? string.Empty
-        : $"&{nameof(SortBy)}={SortBy}&{nameof(SortDir)}={SortDir}";
-
+        ? string.Empty : $"&{nameof(SortBy)}={SortBy}&{nameof(SortDir)}={SortDir}";
     private string search => string.IsNullOrEmpty(SearchStr)
-        ? string.Empty
-        : $"&{nameof(SearchBy)}={SearchBy}&{nameof(SearchStr)}={SearchStr}";
-
+        ? string.Empty : $"&{nameof(SearchBy)}={SearchBy}&{nameof(SearchStr)}={SearchStr}";
     private string selected(Guid id) => (Selected == id.ToString())
-        ? string.Empty
-        : $"&{nameof(Selected)}={id}";
-
+        ? string.Empty : $"&{nameof(Selected)}={id}";
     public string Href(string baseUri, int? page = null, int? pageSize = null)
         => $"{baseUri}?{nameof(Page)}={page ?? Page}&{nameof(PageSize)}={pageSize ?? PageSize}{sort}{search}";
-
     public string Href(string baseUri, Guid id) => Href(baseUri) + selected(id);
-
     public string Href(string baseUri, string sortBy)
     {
         var n = ((SortBy == sortBy) && (SortDir == "desc")) ? null : sortBy;

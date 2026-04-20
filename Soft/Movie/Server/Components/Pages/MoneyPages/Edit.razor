@@ -8,20 +8,23 @@
 <MyEditPage 
     PageTitleText="Edit Money" 
     EntityTitle="Money" 
-    Entity="item" 
+    Entity="money" 
     BasePath="/money"
     EntityId="@Id"
     OnValidSubmit="update" />
 
+
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    [SupplyParameterFromForm] private Money item { get; set; }
-    protected override async Task OnInitializedAsync() {
-        item ??= await repo.GetAsync(Id);
-        if (item is null) NavigationManager.NotFound();
+    [SupplyParameterFromForm] private Money money { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        money ??= await repo.GetAsync(Id);
+        if (money is null) NavigationManager.NotFound();
     }
-    private async Task update() {
-        await repo.UpdateAsync(item!);
+    private async Task update()
+    {
+        await repo.UpdateAsync(money!);
         NavigationManager.NavigateTo("/money");
     }
 }
