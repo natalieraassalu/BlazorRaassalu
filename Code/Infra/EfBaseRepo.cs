@@ -71,6 +71,8 @@ public class EfBaseRepo<TContext, TEntity>(TContext c) : IRepo<TEntity>
         => string.IsNullOrEmpty(propName) ? null : typeof(TEntity).GetProperty(propName, flags);
     private static Expression<Func<TEntity, object>> sortBy(string propName)
     {
+        //r.OrderBy(x => x.Id);
+
         var p = getProp(propName);
         if (p is null) return null;
         if (string.IsNullOrEmpty(propName)) return null;

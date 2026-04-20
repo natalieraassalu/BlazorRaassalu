@@ -21,7 +21,8 @@ public sealed partial class EditorAdapter(ComponentBase c, object item, string p
 {
     public PropertyInfo PropInfo => ad?.PropInfo;
     public string DisplayName => hasName ? toName : string.Empty;
-    public Type Editor => underlyingType.IsString() ? typeof(InputText)
+    public Type Editor => isSelect ? typeof(MyEntitiesSelect)
+        : underlyingType.IsString() ? typeof(InputText)
         : underlyingType.IsBool() ? typeof(InputCheckbox)
         : underlyingType.IsDate() ? generic(typeof(InputDate<>), propType)
         : underlyingType.IsNumeric() ? generic(typeof(InputNumber<>), propType)
@@ -36,7 +37,7 @@ public sealed partial class EditorAdapter(ComponentBase c, object item, string p
             ["Value"] = ad.PropValue,
             ["ValueChanged"] = valChanged(),
             ["ValueExpression"] = valExpression()
-        };
+        }.withSelectParams(hasSelect);
     public IDictionary<string, object> ValidationParams
         => new Dictionary<string, object>
         {
@@ -68,5 +69,18 @@ public sealed partial class EditorAdapter(ComponentBase c, object item, string p
     internal object valChanged() => makeGeneric(method(nameof(changed)));
     internal object valExpression() => makeGeneric(method(nameof(expression)));
     internal static Type generic(Type editor, Type t) => editor.MakeGenericType(t);
+
+    internal bool isSelect => hasSelect is not null && propType == typeof(Guid?);
+    internal SelectAttribute hasSelect => ad?.PropInfo?.GetCustomAttribute<SelectAttribute>();
+}
+file static class EditorParamsExtensions
+{
+    public static IDictionary<string, object> withSelectParams(this IDictionary<string, object> d, SelectAttribute a)
+    {
+        if (a is null) return d;
+        d[nameof(SelectAttribute.EntityType)] = a.EntityType;
+        d[nameof(SelectAttribute.DisplayProperty)] = a.DisplayProperty;
+        return d;
+    }
 
 }
