@@ -22,10 +22,10 @@ public sealed partial class EditorAdapter(ComponentBase c, object item, string p
     public PropertyInfo PropInfo => ad?.PropInfo;
     public string DisplayName => hasName ? toName : string.Empty;
     public Type Editor => underlyingType.IsString() ? typeof(InputText)
-                        : underlyingType.IsBool() ? typeof(InputCheckbox)
-                        : underlyingType.IsDate() ? generic(typeof(InputDate<>), propType)
-                        : underlyingType.IsNumeric() ? generic(typeof(InputNumber<>), propType)
-                        : null;
+        : underlyingType.IsBool() ? typeof(InputCheckbox)
+        : underlyingType.IsDate() ? generic(typeof(InputDate<>), propType)
+        : underlyingType.IsNumeric() ? generic(typeof(InputNumber<>), propType)
+        : null;
     public Type Validator => generic(typeof(ValidationMessage<>), propType);
     public IDictionary<string, object> EditorParams
         => new Dictionary<string, object>

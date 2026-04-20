@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abc.Data;
 
-public class Movie:NamedEntity
+    public class Movie:NamedEntity
 {
     [DisplayName("Title")] public override string Name { get; set; }
     [DisplayName("ReleaseDate")] public override DateTime? ValidFrom { get; set; }

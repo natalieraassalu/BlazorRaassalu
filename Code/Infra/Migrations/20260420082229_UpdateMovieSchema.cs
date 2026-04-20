@@ -11,24 +11,6 @@ namespace Abc.Infra.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("""
-                IF OBJECT_ID(N'[Money]', N'U') IS NULL
-                BEGIN
-                    CREATE TABLE [Money] (
-                        [Id] uniqueidentifier NOT NULL,
-                        [Amount] decimal(18,2) NOT NULL,
-                        [CurrencyId] uniqueidentifier NULL,
-                        [ValidFrom] datetime2 NULL,
-                        [ValidTo] datetime2 NULL,
-                        [Timestamp] rowversion NULL,
-                        CONSTRAINT [PK_Money] PRIMARY KEY ([Id])
-                    );
-                    CREATE INDEX [IX_Money_CurrencyId] ON [Money] ([CurrencyId]);
-                    ALTER TABLE [Money] ADD CONSTRAINT [FK_Money_Currencies_CurrencyId]
-                        FOREIGN KEY ([CurrencyId]) REFERENCES [Currencies] ([Id]);
-                END
-                """);
-
             migrationBuilder.DropColumn(
                 name: "IsIsoCountry",
                 table: "Countries");
