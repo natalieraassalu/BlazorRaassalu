@@ -5,18 +5,19 @@
 @inject ICountryCurrenciesRepo repo
 @inject NavigationManager NavigationManager
 
-<MyDetailsPage
-    PageTitleText="Details Country Currency"
-    EntityTitle="Country Currency"
-    Entity="item"
-    EntityId="item?.Id"
-    BasePath="/countrycurrencies" />
+<MyDetailsPage PageTitleText="Details Country Currency"
+               EntityTitle="Country Currency"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/countrycurrencies" />
 
 @code {
     private CountryCurrency item;
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    protected override async Task OnInitializedAsync() {
+    protected override async Task OnInitializedAsync()
+    {
         item = await repo.GetAsync(Id);
         if (item is null) NavigationManager.NotFound();
     }
 }
+

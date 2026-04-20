@@ -1,12 +1,10 @@
 ﻿<dl class="row">
-    @if (hasProperty)
-    {
+    @if (hasProperty) {
         <dt class="col-md-4">
             <label for="@PropertyName" class="form-label">@inputLabel</label>
         </dt>
         <dd class="col-md-8">
-            @if (hasEditor)
-            {
+            @if (hasEditor) {
                 <DynamicComponent Type="@editorType" Parameters="@editorParams" />
                 <DynamicComponent Type="@validationType" Parameters="@validationParams" />
             }
@@ -22,9 +20,9 @@
     private IEditorAdapter ad;
     private bool hasEditor => editorType is not null;
     private bool hasProperty => ad?.PropInfo is not null;
-    private string inputLabel => ad?.DisplayName ?? string.Empty;
+    private string inputLabel => ad?.DisplayName ?? string.Empty;  
     private Type editorType => ad?.Editor;
     private Type validationType => ad?.Validator;
     private IDictionary<string, object> editorParams => ad?.EditorParams;
-    private IDictionary<string, object> validationParams => ad?.ValidationParams;
+    private IDictionary<string, object> validationParams  => ad?.ValidationParams;
 }
