@@ -10,10 +10,10 @@ public class EfBaseRepo<TContext, TEntity>(TContext c) : IRepo<TEntity>
     where TEntity : BaseEntity
 {
     protected readonly TContext db = c;
-    private IQueryable<TEntity> set => db.Set<TEntity>();
+    protected virtual IQueryable<TEntity> Query() => db.Set<TEntity>();
     public async Task<int> CountAsync(Query q)
     {
-        var r = addSearch(set, q);
+        var r = addSearch(Query(), q);
         return await r.CountAsync();
     }
     public async Task<TEntity> CreateAsync(TEntity e)
@@ -24,7 +24,7 @@ public class EfBaseRepo<TContext, TEntity>(TContext c) : IRepo<TEntity>
     }
     public Task DeleteAsync(Guid id) => deleteAsync(id);
     public async Task<TEntity> GetAsync(Guid id) =>
-        await set.FirstOrDefaultAsync(x => x.Id == id);
+        await Query().FirstOrDefaultAsync(x => x.Id == id);
     public async Task<IEnumerable<TEntity>> GetAsync(Query q) => await getAsync(q);
     public async Task<TEntity> UpdateAsync(TEntity e)
     {
@@ -41,7 +41,7 @@ public class EfBaseRepo<TContext, TEntity>(TContext c) : IRepo<TEntity>
     }
     private async Task<IEnumerable<TEntity>> getAsync(Query q)
     {
-        var r = addSearch(set, q);
+        var r = addSearch(Query(), q);
         r = addSort(r, q);
         r = addPagging(r, q);
         return await r.AsNoTracking().ToListAsync();
@@ -71,7 +71,7 @@ public class EfBaseRepo<TContext, TEntity>(TContext c) : IRepo<TEntity>
         => string.IsNullOrEmpty(propName) ? null : typeof(TEntity).GetProperty(propName, flags);
     private static Expression<Func<TEntity, object>> sortBy(string propName)
     {
-        //r.OrderBy(x => x.Id);
+        // r.OrderBy(x => x.Id);
 
         var p = getProp(propName);
         if (p is null) return null;

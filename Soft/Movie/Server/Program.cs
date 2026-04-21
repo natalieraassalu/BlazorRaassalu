@@ -49,7 +49,7 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 var sp = scope.ServiceProvider;
 var db = sp.GetRequiredService<ApplicationDbContext>();
-await new SeedDb(db, 10000).Seed();
+await new SeedDb(db, 100).Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

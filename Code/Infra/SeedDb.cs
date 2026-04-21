@@ -14,6 +14,7 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20)
             nameof(Currency.Timestamp)]);
 
         await seedTable(db.Countries, [
+            nameof(Country.CountryCurrencies),
             nameof(Country.Currencies),
             nameof(Country.Timestamp)]);
 
