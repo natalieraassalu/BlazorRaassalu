@@ -39,13 +39,15 @@ public abstract class TestAids<TClass>:TestAids where TClass : class, new()
 public abstract class TestAids
 {
     protected Type type { get; set; }
-    [TestMethod] public void IsCorrectClassTest()
+
+    [TestMethod]
+    public void IsCorrectClassTest()
     {
         var className = type?.Name;
         var testClassName = GetType().Name;
         Assert.AreEqual(testClassName.Replace("Tests", ""), className);
     }
 
-    public void areEqual<T>(T expected,T actual) => Assert.AreEqual(expected, actual);
-    public void areSame(object expected, object actual) => Assert.AreSame(expected, actual);
+    public void areEqual<T>(T e, T a) => Assert.AreEqual(e, a);
+    public void areSame(object e, object a) => Assert.AreSame(e, a);
 }

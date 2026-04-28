@@ -15,9 +15,10 @@
     <PackageReference Include="NuGet.Protocol" Version="7.3.1" />
   </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Code\Aids\Aids.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Code\Infra\Infra.csproj" />
+    <ProjectReference Include="..\Aids\Tests.Aids.csproj" />
+  </ItemGroup>		
 
 	<ItemGroup>
 	  <PackageReference Update="Microsoft.NET.Test.Sdk" Version="18.4.0" />
