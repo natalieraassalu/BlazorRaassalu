@@ -10,7 +10,13 @@
     <UseVSTest>true</UseVSTest>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Code\Razor\Razor.csproj" />
+		<ProjectReference Include="..\Aids\Tests.Aids.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="bunit.web" Version="1.40.0" />
     <PackageReference Include="NuGet.Packaging" Version="7.3.1" />
     <PackageReference Include="NuGet.Protocol" Version="7.3.1" />
   </ItemGroup>
@@ -25,6 +31,11 @@
 
   <ItemGroup>
     <PackageReference Update="MSTest.TestFramework" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Code\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
 
 </Project>
