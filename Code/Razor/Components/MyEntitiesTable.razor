@@ -41,8 +41,8 @@
 
 
 @code {
-    private IQueryable<TEntity> Entities { get; set; }
-    private IQueryable<TEntity> Others { get; set; }
+    private IQueryable<TEntity> Entities { get; set; } = Enumerable.Empty<TEntity>().AsQueryable();
+    private IQueryable<TEntity> Others { get; set; } = Enumerable.Empty<TEntity>().AsQueryable();
     [Parameter] public IRepo<TEntity> Repo { get; set; }
     [Parameter] public string BasePath { get; set; }
     [Inject] private NavigationManager nav { get; set; }

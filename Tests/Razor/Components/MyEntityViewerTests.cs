@@ -1,4 +1,4 @@
-﻿namespace Abc.Tests.Shared.Components;
+﻿namespace Abc.Tests.Razor.Components;
 
 using Abc.Aids;
 using Abc.Razor.Components;
