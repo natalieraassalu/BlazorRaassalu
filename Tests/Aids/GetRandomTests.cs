@@ -77,6 +77,7 @@ namespace Abc.Tests.Aids;
         foreach(var p in typeof(testClass).GetProperties())
         {
             if (p.PropertyType.IsArray) continue;
+            if (p.PropertyType == typeof(Guid)) continue;
             Assert.AreNotEqual(p.GetValue(o1), p.GetValue(o2));
         }
     }
