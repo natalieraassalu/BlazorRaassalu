@@ -1,9 +1,11 @@
 using Abc.Infra;
 using Abc.Soft.Movie.Components;
 using Abc.Soft.Movie.Components.Account;
+using Abc.Soft.Movie;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,12 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddQuickGridEntityFrameworkAdapter();
+builder.Services.ConfigureHttpJsonOptions(o =>
+    o.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -73,7 +80,15 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Abc.Soft.Movie.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(
+        typeof(Abc.Soft.Movie.Client._Imports).Assembly,
+        typeof(Abc.Shared.Pages.Home).Assembly);
+
+app.MapCountriesApi();
+app.MapMoviesApi();
+app.MapCurrenciesApi();
+app.MapMoneyApi();
+app.MapCountryCurrenciesApi();
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();

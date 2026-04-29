@@ -25,6 +25,11 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Pages\CountryPages" />
+    <Folder Include="Pages\MoviePages" />
+    <Folder Include="Pages\MoneyPages" />
+    <Folder Include="Pages\CurrencyPages" />
+    <Folder Include="Pages\CountryCurrencyPages" />
   </ItemGroup>
 
 

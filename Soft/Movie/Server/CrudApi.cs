@@ -3,7 +3,7 @@ using Abc.Infra;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace Abc.Soft.Web;
+namespace Abc.Soft.Movie;
 
 public static class CrudApi
 {
