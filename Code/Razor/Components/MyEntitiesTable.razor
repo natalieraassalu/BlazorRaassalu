@@ -8,6 +8,7 @@
 @using Abc.Razor.Code
 
 @typeparam TEntity where TEntity : BaseEntity
+@implements IDisposable
 
 <MyQuickGrid Entities="@Entities" BasePath="@BasePath" Query="@query"/>
 @if (isSelected(selectedItem)) {
@@ -47,10 +48,18 @@
     [Parameter] public string BasePath { get; set; }
     [Inject] private NavigationManager nav { get; set; }
     private int totalCount;
-    private Query query;
+    private Query query=new();
     private TEntity selectedItem;
-    protected override async Task OnInitializedAsync() {
-        if (Repo is null) return;
+
+    protected override async Task OnInitializedAsync()
+    {
+        nav.LocationChanged += onLocationChanged;
+        await loadAsync();
+    }
+    private async Task loadAsync() 
+    {
+
+    if (Repo is null) return;
         var uri = nav.ToAbsoluteUri(nav.Uri);
         query = new UrlParams(uri).Parse();
         totalCount = await Repo.CountAsync(query);
@@ -71,8 +80,15 @@
         Entities = entities.AsQueryable();
         Others = others.AsQueryable();
     }
+    private void onLocationChanged(object sender, LocationChangedEventArgs e) 
+        => _ = InvokeAsync(async () =>
+        {
+            await loadAsync();
+            StateHasChanged();
+        });
     private bool isSelected(TEntity e) => query.Selected == e?.Id.ToString();
     private string closHref(TEntity e) => query.Href(BasePath, e.Id);
+    public void Dispose() => nav.LocationChanged -= onLocationChanged;
 }
 
 <style>
