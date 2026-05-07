@@ -82,7 +82,7 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(
         typeof(Abc.Soft.Movie.Client._Imports).Assembly,
-        typeof(Abc.Shared.Home).Assembly);
+        typeof(Abc.Soft.Movie.Client.Pages.Home).Assembly);
 
 app.MapCountriesApi();
 app.MapMoviesApi();

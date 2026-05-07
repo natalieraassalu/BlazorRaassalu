@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\**" />
+    <Content Remove="Pages\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <ProjectReference Include="..\Client\Movie.Client.csproj" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="10.0.5" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.5" />
@@ -25,11 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Pages\CountryPages" />
-    <Folder Include="Pages\MoviePages" />
-    <Folder Include="Pages\MoneyPages" />
-    <Folder Include="Pages\CurrencyPages" />
-    <Folder Include="Pages\CountryCurrencyPages" />
   </ItemGroup>
 
 
