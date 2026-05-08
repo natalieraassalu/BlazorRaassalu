@@ -9,7 +9,7 @@
   </Folder>
   <Folder Name="/Soft/" />
   <Folder Name="/Soft/App/">
-    <Project Path="Soft/Maui/Maui.csproj" Id="aa62fd7e-ba7f-481e-b355-7819ab2bb963" />
+    <Project Path="Soft/App/App.csproj" />
   </Folder>
   <Folder Name="/Soft/Blazor/">
     <Project Path="Soft/Blazor/Client/Blazor.Client.csproj" />
