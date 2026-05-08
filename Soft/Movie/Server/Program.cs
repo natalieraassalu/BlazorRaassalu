@@ -31,7 +31,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 builder.Services.ConfigureHttpJsonOptions(o =>
     o.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -81,8 +81,7 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(
-        typeof(Abc.Soft.Movie.Client._Imports).Assembly,
-        typeof(Abc.Soft.Movie.Client.Pages.Home).Assembly);
+        typeof(Abc.Soft.Movie.Client._Imports).Assembly);
 
 app.MapCountriesApi();
 app.MapMoviesApi();
