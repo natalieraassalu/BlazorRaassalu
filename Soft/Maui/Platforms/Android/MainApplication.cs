@@ -1,7 +1,8 @@
 ﻿using Android.App;
 using Android.Runtime;
+using Abc.Soft.Maui;
 
-namespace Maui
+namespace Abc.Soft.Maui
 {
     [Application]
     public class MainApplication : MauiApplication
